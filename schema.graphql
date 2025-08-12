@@ -1,0 +1,53 @@
+type Device {
+  id: ID!
+  name: String!
+  serialNumber: String!
+  type: DeviceType!
+  status: DeviceStatus!
+  lastSeenAt: String
+  firmwareVersion: String!
+  location: String
+  createdAt: String!
+  updatedAt: String!
+}
+
+enum DeviceType {
+  SENSOR
+  GATEWAY
+  CAMERA
+  CONTROLLER
+}
+
+enum DeviceStatus {
+  ONLINE
+  OFFLINE
+  MAINTENANCE
+  ERROR
+}
+
+input CreateDeviceInput {
+  name: String!
+  serialNumber: String!
+  type: DeviceType!
+  firmwareVersion: String!
+  location: String
+}
+
+input UpdateDeviceInput {
+  id: ID!
+  name: String
+  status: DeviceStatus
+  firmwareVersion: String
+  location: String
+}
+
+type Query {
+  devices: [Device!]!
+  device(id: ID!): Device
+}
+
+type Mutation {
+  createDevice(input: CreateDeviceInput!): Device!
+  updateDevice(input: UpdateDeviceInput!): Device!
+  deleteDevice(id: ID!): Boolean!
+}

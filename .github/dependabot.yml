@@ -1,0 +1,69 @@
+version: 2
+updates:
+  # Enable version updates for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 10
+    groups:
+      # Production dependencies
+      production-dependencies:
+        patterns:
+          - "@apollo/client"
+          - "@apollo/server"
+          - "@as-integrations/next"
+          - "graphql"
+          - "next"
+          - "react"
+          - "react-dom"
+        dependency-type: "production"
+
+      # Testing dependencies
+      testing-dependencies:
+        patterns:
+          - "@testing-library/*"
+          - "@types/jest"
+          - "jest"
+          - "jest-environment-jsdom"
+          - "cypress"
+          - "start-server-and-test"
+        dependency-type: "development"
+
+      # TypeScript and types
+      typescript-dependencies:
+        patterns:
+          - "typescript"
+          - "@types/node"
+          - "@types/react"
+          - "@types/react-dom"
+        dependency-type: "development"
+
+      # GraphQL code generation
+      graphql-codegen:
+        patterns:
+          - "@graphql-codegen/*"
+        dependency-type: "development"
+
+      # Linting and formatting
+      linting-dependencies:
+        patterns:
+          - "eslint"
+          - "eslint-config-next"
+          - "@eslint/eslintrc"
+          - "prettier"
+        dependency-type: "development"
+
+      # Styling
+      styling-dependencies:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/postcss"
+        dependency-type: "development"
+
+  # Enable security updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 5
