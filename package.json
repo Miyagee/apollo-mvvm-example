@@ -1,27 +1,51 @@
 {
-  "name": "apollo-mvvm-device-managment-example",
+  "name": "apollo-mvvm-example",
   "version": "0.1.0",
+  "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
+    "dev": "npm run codegen && next dev --turbopack",
+    "build": "npm run codegen && next build",
+    "start": "npm run codegen && next start",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "e2e": "cypress open",
+    "e2e:headless": "cypress run",
+    "e2e:ci": "start-server-and-test dev http://localhost:3000 e2e:headless",
+    "codegen": "graphql-codegen --config codegen.yml",
+    "codegen:watch": "graphql-codegen --config codegen.yml --watch",
+    "type-check": "tsc --noEmit",
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.13.9",
+    "@apollo/server": "^5.0.0",
+    "graphql": "^16.11.0",
+    "next": "15.4.6",
     "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "next": "15.4.6"
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
+    "@graphql-codegen/cli": "^5.0.7",
+    "@graphql-codegen/typescript": "^4.1.6",
+    "@graphql-codegen/typescript-operations": "^4.6.1",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.3",
+    "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.6.4",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^30.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
+    "cypress": "^14.5.4",
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
-    "@eslint/eslintrc": "^3"
+    "jest": "^30.0.5",
+    "jest-environment-jsdom": "^30.0.5",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }

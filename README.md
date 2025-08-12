@@ -1,3 +1,48 @@
+# Project structure
+
+```sh
+apollo-example-mvvm/
+├── apollo-server/
+│   └── index.ts
+├── src/
+│   ├── graphql/
+│   │   ├── operations/
+│   │   │   └── devices.graphql
+│   │   └── generated/
+│   │       └── .gitkeep
+│   ├── models/
+│   │   ├── Device.ts
+│   │   └── __tests__/
+│   │       └── Device.test.ts
+│   ├── viewmodels/
+│   │   ├── DeviceViewModel.ts
+│   │   └── __tests__/
+│   │       └── DeviceViewModel.test.tsx
+│   ├── views/
+│   │   ├── DeviceTableView.tsx
+│   │   └── __tests__/
+│   │       └── DeviceTableView.test.tsx
+│   ├── lib/
+│   │   └── apollo-client.ts
+│   └── pages/
+│       ├── _app.tsx
+│       ├── index.tsx
+│       └── api/
+│           └── graphql.ts
+├── styles/
+│   ├── globals.css
+│   └── DeviceTable.module.css
+├── schema.graphql
+├── codegen.yml
+├── package.json
+├── tsconfig.json
+├── next.config.js
+├── jest.config.js
+├── .gitignore
+└── README.md
+```
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
