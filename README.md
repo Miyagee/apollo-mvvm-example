@@ -10,6 +10,8 @@ apollo-mvvm-example/
 │   ├── api/
 │   │   └── graphql/
 │   │       └── route.ts
+│   ├── favicon.ico
+│   ├── global.css
 │   ├── layout.tsx
 │   └── page.tsx
 ├── graphql/
@@ -36,8 +38,6 @@ apollo-mvvm-example/
 │   │   └── device-management.cy.ts
 │   └── support/
 │       └── e2e.ts
-├── styles/
-│   └── globals.css
 ├── schema.graphql
 ├── codegen.yml
 ├── package.json
