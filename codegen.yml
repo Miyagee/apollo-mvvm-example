@@ -1,0 +1,19 @@
+overwrite: true
+schema: "./schema.graphql"
+documents: "./graphql/operations/**/*.graphql"
+generates:
+  ./graphql/generated/index.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      withHooks: true
+      withHOC: false
+      withComponent: false
+      scalars:
+        ID: string
+        String: string
+        Boolean: boolean
+        Int: number
+        Float: number

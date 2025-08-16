@@ -1,0 +1,63 @@
+query GetDevices {
+  devices {
+    id
+    name
+    serialNumber
+    type
+    status
+    lastSeenAt
+    firmwareVersion
+    location
+    createdAt
+    updatedAt
+  }
+}
+
+query GetDevice($id: ID!) {
+  device(id: $id) {
+    id
+    name
+    serialNumber
+    type
+    status
+    lastSeenAt
+    firmwareVersion
+    location
+    createdAt
+    updatedAt
+  }
+}
+
+mutation CreateDevice($input: CreateDeviceInput!) {
+  createDevice(input: $input) {
+    id
+    name
+    serialNumber
+    type
+    status
+    lastSeenAt
+    firmwareVersion
+    location
+    createdAt
+    updatedAt
+  }
+}
+
+mutation UpdateDevice($input: UpdateDeviceInput!) {
+  updateDevice(input: $input) {
+    id
+    name
+    serialNumber
+    type
+    status
+    lastSeenAt
+    firmwareVersion
+    location
+    createdAt
+    updatedAt
+  }
+}
+
+mutation DeleteDevice($id: ID!) {
+  deleteDevice(id: $id)
+}
