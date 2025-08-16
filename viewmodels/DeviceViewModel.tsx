@@ -1,13 +1,14 @@
 import { useState, useCallback } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+
 import {
   GetDevicesDocument,
-  CreateDeviceDocument,
-  UpdateDeviceDocument,
-  DeleteDeviceDocument,
   CreateDeviceInput,
   UpdateDeviceInput,
   Device,
+  useGetDevicesQuery,
+  useCreateDeviceMutation,
+  useUpdateDeviceMutation,
+  useDeleteDeviceMutation,
 } from '../graphql/generated';
 import { DeviceModel } from '../models/Device';
 
@@ -44,14 +45,14 @@ export function useDevices(): UseDevicesResult {
   const [searchTerm, setSearchTerm] = useState('');
 
   // GraphQL queries
-  const { data, loading, error, refetch } = useQuery(GetDevicesDocument, {
+  const { data, loading, error, refetch } = useGetDevicesQuery({
     errorPolicy: 'all',
   });
 
   // GraphQL mutations
-  const [createDeviceMutation, { loading: creating }] = useMutation(CreateDeviceDocument);
-  const [updateDeviceMutation, { loading: updating }] = useMutation(UpdateDeviceDocument);
-  const [deleteDeviceMutation, { loading: deleting }] = useMutation(DeleteDeviceDocument);
+  const [createDeviceMutation, { loading: creating }] = useCreateDeviceMutation();
+  const [updateDeviceMutation, { loading: updating }] = useUpdateDeviceMutation();
+  const [deleteDeviceMutation, { loading: deleting }] = useDeleteDeviceMutation();
 
   // Transform raw devices to DeviceModel instances
   const devices = (data?.devices || []).map((device: Device) => new DeviceModel(device));
