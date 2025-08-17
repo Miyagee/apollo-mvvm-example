@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 import {
   GetDevicesDocument,
@@ -9,8 +9,8 @@ import {
   useCreateDeviceMutation,
   useUpdateDeviceMutation,
   useDeleteDeviceMutation,
-} from '../graphql/generated';
-import { DeviceModel } from '../models/Device';
+} from '@/graphql/generated';
+import { DeviceModel } from '@/models/Device';
 
 export interface UseDevicesResult {
   // Data
@@ -28,7 +28,7 @@ export interface UseDevicesResult {
 
   // Search
   searchTerm: string;
-  setSearchTerm: (term: string) => void;
+  setSearchInput: (input: string) => void;
   filteredDevices: DeviceModel[];
 
   // Actions
@@ -42,7 +42,19 @@ export interface UseDevicesResult {
 export function useDevices(): UseDevicesResult {
   // Local state
   const [selectedDeviceId, setSelectedDeviceId] = useState<string | null>(null);
+  const [searchInput, setSearchInput] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+
+  // Debounced search term
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setSearchTerm(searchInput);
+    }, 250);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchInput]);
 
   // GraphQL queries
   const { data, loading, error, refetch } = useGetDevicesQuery({
@@ -173,7 +185,7 @@ export function useDevices(): UseDevicesResult {
 
     // Search
     searchTerm,
-    setSearchTerm,
+    setSearchInput,
     filteredDevices,
 
     // Actions

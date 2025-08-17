@@ -1,5 +1,6 @@
-import { DeviceModel } from '../Device';
-import { Device, DeviceStatus, DeviceType } from '../../graphql/generated';
+import { Device, DeviceStatus, DeviceType } from '@/graphql/generated';
+
+import { DeviceModel } from '.';
 
 describe('DeviceModel', () => {
   const mockDevice: Device = {

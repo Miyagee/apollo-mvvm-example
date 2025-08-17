@@ -1,4 +1,4 @@
-import { Device, DeviceStatus, DeviceType } from '../graphql/generated';
+import { Device, DeviceStatus, DeviceType } from '@/graphql/generated';
 
 /**
  * Device Model - Business logic and data validation

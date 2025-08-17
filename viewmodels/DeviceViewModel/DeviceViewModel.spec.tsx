@@ -2,7 +2,6 @@ import React from 'react';
 import { renderHook, act, waitFor } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { GraphQLError } from 'graphql';
-import { useDevices } from '../DeviceViewModel';
 import {
   GetDevicesDocument,
   CreateDeviceDocument,
@@ -11,8 +10,9 @@ import {
   Device,
   DeviceStatus,
   DeviceType,
-} from '../../graphql/generated';
-import { InMemoryCache } from '@apollo/client';
+} from '@/graphql/generated';
+
+import { useDevices } from '.';
 
 // Mock device data
 const createMockDevices = (): Device[] => [
@@ -47,14 +47,7 @@ const createMockDevices = (): Device[] => [
 // Helper to create wrapper with mocked Apollo Provider
 const createWrapper = (mocks: MockedResponse[]) => {
   function TestWrapper({ children }: { children: React.ReactNode }) {
-    // Create a new cache instance for each test
-    const cache = new InMemoryCache();
-
-    return (
-      <MockedProvider mocks={mocks} cache={cache}>
-        {children}
-      </MockedProvider>
-    );
+    return <MockedProvider mocks={mocks}>{children}</MockedProvider>;
   }
 
   return TestWrapper;
@@ -232,26 +225,44 @@ describe('useDevices', () => {
 
       // Search by name
       act(() => {
-        result.current.setSearchTerm('temperature');
+        result.current.setSearchInput('temperature');
       });
 
-      expect(result.current.filteredDevices).toHaveLength(1);
-      expect(result.current.filteredDevices[0].name).toBe('Temperature Sensor');
+      // Wait for debounce (300ms)
+      await waitFor(
+        () => {
+          expect(result.current.filteredDevices).toHaveLength(1);
+          expect(result.current.filteredDevices[0].name).toBe('Temperature Sensor');
+        },
+        { timeout: 400 }
+      );
 
       // Search by serial number
       act(() => {
-        result.current.setSearchTerm('GW-001');
+        result.current.setSearchInput('GW-001');
       });
 
-      expect(result.current.filteredDevices).toHaveLength(1);
-      expect(result.current.filteredDevices[0].name).toBe('Gateway Device');
+      // Wait for debounce
+      await waitFor(
+        () => {
+          expect(result.current.filteredDevices).toHaveLength(1);
+          expect(result.current.filteredDevices[0].name).toBe('Gateway Device');
+        },
+        { timeout: 300 }
+      );
 
       // Clear search
       act(() => {
-        result.current.setSearchTerm('');
+        result.current.setSearchInput('');
       });
 
-      expect(result.current.filteredDevices).toHaveLength(2);
+      // Wait for debounce
+      await waitFor(
+        () => {
+          expect(result.current.filteredDevices).toHaveLength(2);
+        },
+        { timeout: 300 }
+      );
     });
   });
 
